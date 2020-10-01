@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+import GlobalStyle from "components/globalStyle";
+import TronContext from 'contexts/tronWeb';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GlobalStyle />
+    <TronContext>
+      <App />
+    </TronContext>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -9,6 +9,7 @@
     "module": "esnext",
     "outDir": "./dist",
     "rootDir": "./src",
+    "baseUrl": "src",
     "strict": true,
     "noImplicitAny": false,
     "noUnusedParameters": false,

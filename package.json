@@ -15,9 +15,11 @@
     "coinselect": "^3.1.12",
     "dotenv": "^8.2.0",
     "https": "^1.0.0",
+    "multicoin-address-validator": "^0.4.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
+    "styled-components": "^5.2.0",
     "tronweb": "^3.1.0",
     "typescript": "~3.7.2"
   },
