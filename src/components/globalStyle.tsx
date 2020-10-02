@@ -200,55 +200,84 @@ const GlobalStyle = createGlobalStyle`
     .balance{
         margin-bottom:1rem;
     }
-    .get-balance{
-        padding:1rem;
-        border: solid 1px orange;
-        margin-bottom:2rem;
+    .balance{
+        display:flex;
+        justify-content:space-between;
         width:80%;
-        text-align:center;
-        img{
-            width:80px;
+        >div{
+            width:45%;
         }
-        label{
-            text-align:left;
-            font-size:0.8rem;
+        .get-balance{
+            padding:1rem;
+            border: solid 1px orange;
+            margin-bottom:2rem;
+            text-align:center;
+            img{
+                width:80px;
+            }
+            label{
+                text-align:left;
+                font-size:0.8rem;
+            }
+            input{
+                margin-bottom:1rem;
+            }
         }
-        input{
-            margin-bottom:1rem;
+        .get-balance-trx{
+            padding:1rem;
+            border: solid 1px white;
+            margin-bottom:2rem;
+            text-align:center;
+            img{
+                width:80px;
+            }
+            label{
+                text-align:left;
+                font-size:0.8rem;
+            }
+            input{
+                margin-bottom:1rem;
+            }
         }
     }
-    .get-balance-trx{
-        padding:1rem;
-        border: solid 1px white;
-        margin-bottom:2rem;
+    .action{
+        display:flex;
+        justify-content:space-between;
         width:80%;
-        text-align:center;
-        img{
-            width:80px;
+        >div{
+            width:45%;
         }
-        label{
-            text-align:left;
-            font-size:0.8rem;
+        .send-balance{
+            padding:1rem;
+            border: solid 1px green;
+            margin-bottom:2rem;
+            text-align:center;
+            img{
+                width:80px;
+            }
+            label{
+                text-align:left;
+                font-size:0.8rem;
+            }
+            input{
+                margin-bottom:1rem;
+            }
         }
-        input{
-            margin-bottom:1rem;
-        }
-    }
-    .send-balance{
-        padding:1rem;
-        border: solid 1px green;
-        margin-bottom:2rem;
-        width:80%;
-        text-align:center;
-        img{
-            width:80px;
-        }
-        label{
-            text-align:left;
-            font-size:0.8rem;
-        }
-        input{
-            margin-bottom:1rem;
+        .unwrap{
+            padding:1rem;
+            border: solid 1px yellow;
+            margin-bottom:2rem;
+            text-align:center;
+            img{
+                width:80px;
+            }
+            label{
+                text-align:left;
+                font-size:0.8rem;
+            }
+            input{
+                margin-bottom:1rem;
+            }
         }
     }
     .form_body{
