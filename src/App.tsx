@@ -79,7 +79,6 @@ function App() {
 
   const [unwrapAddress, setUnwrapAddress] = useState('')
   const [unwrapAmount, setUnwrapAmount] = useState(0)
-
   const actionUnWrap = async () => {
     try {
       if (data?.harambe && tronWeb) {
@@ -104,7 +103,9 @@ function App() {
                     callValue: 0,
                     feeLimit: 1e7,
                   });
+                  console.log('rsSend', rsSend)
                   if (rsSend) {
+                    let add = await (window as any).tronWeb.contract().at(contract.getAddress)
                     let result = await add.unwrap(unwrapAddress, unwrapAmount).send({
                       callValue: 0,
                       feeLimit: 1e7,
@@ -112,9 +113,9 @@ function App() {
                     console.log('result', result)
                   }
                 } catch (error) {
-                  console.log("error", error);
+                  console.log("error", error)
                 }
-              } 
+              }
               else {
                 console.log('I dont know how i came here - ah no, not connect babe')
               }
@@ -136,7 +137,7 @@ function App() {
             <img src={gif1} alt="" />
             <label>BTC Address:</label>
             <input placeholder="mi7JyT8UAG6Ksd4LJbVuX866ssomxAZAY9" onChange={(e) => setAdd(e.target.value)} />
-            <button disabled={!(add !== '')} onClick={() => getbalance()} >Get Balance</button>
+            <button disabled={!(add !== '')} onClick={() => getbalance()} >Get BTC Balance</button>
             <span>Current balance: {balance.current}</span>
             <span>Pending balance: {balance.pending}</span>
           </div>
@@ -156,8 +157,8 @@ function App() {
             <input placeholder="Private key" onChange={(e) => setPrivateKey(e.target.value)} />
             <input placeholder="Amount: 100" onChange={(e) => setAmount(+e.target.value)} type="number" />
             <input value={btcMultisigAddress} readOnly />
-            <input placeholder="Message: TDmYMKhVZTX7Xc2jEtmGmLNp5i8uCEnarT" onChange={(e) => setMessage(e.target.value)} className={`${message === '' ? 'problem' : ''}`} />
-            <button onClick={() => sendBalance()} disabled={!(message !== '')}>Send</button>
+            <input placeholder="TRX address: TDmYMKhVZTX7Xc2jEtmGmLNp5i8uCEnarT" onChange={(e) => setMessage(e.target.value)} className={`${message === '' ? 'problem' : ''}`} />
+            <button onClick={() => sendBalance()} disabled={!(message !== '')}>Wrap</button>
             {errorSend !== '' ?
               <span className="error">{errorSend}</span>
               : null}
@@ -165,7 +166,7 @@ function App() {
 
           <div className="unwrap">
             <img src={gif3} alt="" />
-            <input placeholder="Address" onChange={(e) => setUnwrapAddress(e.target.value)} />
+            <input placeholder="BTC Address" onChange={(e) => setUnwrapAddress(e.target.value)} />
             <input placeholder="Amount: 100" onChange={(e) => setUnwrapAmount(+e.target.value)} type="number" />
             <button onClick={() => actionUnWrap()} disabled={!(unwrapAddress !== '' && unwrapAmount > 0)}>Unwrap</button>
           </div>
