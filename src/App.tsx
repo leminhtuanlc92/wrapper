@@ -88,11 +88,14 @@ function App() {
             let allowance = allowed?.remaining || allowed;
             if (Number(allowance) > 10 ** 15) {
               let address = await (window as any).tronWeb.contract().at(contract.factoryAddress)
-              let result = await address.unwrap(unwrapAddress, unwrapAmount).send({
-                callValue: 0,
-                feeLimit: 1e7,
-              });
-              console.log('result', result)
+              let alright = await data.harambe.balanceOf(unwrapAddress).call()
+              if (Number(alright) >= unwrapAmount) {
+                let result = await address.unwrap(unwrapAddress, unwrapAmount).send({
+                  callValue: 0,
+                  feeLimit: 1e7,
+                });
+                console.log('result', result)
+              }
             }
             else {
               if (isConnect) {
@@ -106,11 +109,19 @@ function App() {
                   console.log('rsSend', rsSend)
                   if (rsSend) {
                     let add = await (window as any).tronWeb.contract().at(contract.getAddress)
-                    let result = await add.unwrap(unwrapAddress, unwrapAmount).send({
-                      callValue: 0,
-                      feeLimit: 1e7,
-                    });
-                    console.log('result', result)
+                    let alright = await data.harambe.balanceOf(unwrapAddress).call()
+                    // .then((balance) => {
+                    //   setBalanceW(Number(balance));
+                    // });
+                    console.log('alright', alright)
+                    if (Number(alright) >= unwrapAmount) {
+                      let result = await add.unwrap(unwrapAddress, unwrapAmount).send({
+                        callValue: 0,
+                        feeLimit: 1e7,
+                      });
+                      console.log('result', result)
+                    }
+                    // console.log('result', result)
                   }
                 } catch (error) {
                   console.log("error", error)

@@ -21,5 +21,5 @@ export const fullNodeUri = 'https://api.shasta.trongrid.io'
 export const solidityNodeUri = 'https://api.shasta.trongrid.io'
 export const eventServerUri = 'https://api.shasta.trongrid.io'
 
-export const trxTokenContractAddress = 'TJCSDZAd5Qu9cKunfnKpRAyhnDRyKA8zPD'
+export const trxTokenContractAddress = 'THE9WMdxzgM5UNgW3ZN3pFicTJfjTyszYK'
 export const trxReadOnlyPrivateKey = 'DC3AEC73E3A613B84B8AAB4FD289947A885F7BB00A0075912DFB2C8350A7B622'
