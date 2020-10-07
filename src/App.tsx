@@ -20,6 +20,7 @@ function App() {
   const [toAdd, setToAdd] = useState(btcMultisigAddress)
   const [message, setMessage] = useState('')
   const [errorSend, setErrorSend] = useState('')
+  const [errorUnwrap, setErrorUnwrap] = useState('')
   const { data, action: { isConnect, address } } = useContext(TronContext)
   const getbalance = () => {
     try {
@@ -76,7 +77,7 @@ function App() {
       setErrorSend(error.message ? error.message : error)
     }
   }
-
+  const [successWrap, setSuccessWrap] = useState(false)
   const [unwrapAddress, setUnwrapAddress] = useState('')
   const [unwrapAmount, setUnwrapAmount] = useState(0)
   const actionUnWrap = async () => {
@@ -84,53 +85,75 @@ function App() {
       if (data?.harambe && tronWeb) {
         if (data?.harambe !== undefined) {
           let allowed = await data.harambe.allowance(address, contract.factoryAddress).call()
+          console.log('AAAA', allowed)
           if (allowed) {
             let allowance = allowed?.remaining || allowed;
             if (Number(allowance) > 10 ** 15) {
-              let address = await (window as any).tronWeb.contract().at(contract.factoryAddress)
-              let alright = await data.harambe.balanceOf(unwrapAddress).call()
+              let address1 = await (window as any).tronWeb.contract().at(contract.factoryAddress)
+              let alright = await data.harambe.balanceOf(address).call()
               if (Number(alright) >= unwrapAmount) {
-                let result = await address.unwrap(unwrapAddress, unwrapAmount).send({
+                let result = await address1.unwrap(unwrapAddress, unwrapAmount).send({
                   callValue: 0,
                   feeLimit: 1e7,
                 });
+                result && setSuccessWrap(true)
                 console.log('result', result)
+              }
+              else {
+                setErrorUnwrap('Thiếu tiền rồi cưng!')
               }
             }
             else {
               if (isConnect) {
                 console.log('here1')
+                console.log('contract.getAddress', contract.getAddress)
                 let add = await (window as any).tronWeb.contract().at(contract.getAddress)
+                console.log('add', add)
                 try {
+                  console.log('Approve address', address)
                   let rsSend = await add.approve(contract.factoryAddress, tronWeb.fromDecimal(10 ** 64)).send({
                     callValue: 0,
                     feeLimit: 1e7,
                   });
                   console.log('rsSend', rsSend)
                   if (rsSend) {
-                    let add = await (window as any).tronWeb.contract().at(contract.getAddress)
-                    let alright = await data.harambe.balanceOf(unwrapAddress).call()
+                    console.log('gohere')
+                    let alright = await data.harambe.balanceOf(address).call()
                     // .then((balance) => {
                     //   setBalanceW(Number(balance));
                     // });
                     console.log('alright', alright)
                     if (Number(alright) >= unwrapAmount) {
+                      let add = await (window as any).tronWeb.contract().at(contract.getAddress)
                       let result = await add.unwrap(unwrapAddress, unwrapAmount).send({
                         callValue: 0,
                         feeLimit: 1e7,
                       });
+                      result && setSuccessWrap(true)
                       console.log('result', result)
+                    }
+                    else {
+                      setErrorUnwrap('Thiếu tiền rồi cưng!')
                     }
                     // console.log('result', result)
                   }
                 } catch (error) {
                   console.log("error", error)
+                  if (error.message.includes('contract validate error : account not exists')) {
+                    setErrorUnwrap('Nạp tiền vào, tiền ko có còn cứ đòi sờ mó!')
+                  } else {
+                    setErrorUnwrap(`Lỗi toé loe: ${error.message ? error.message : error}`)
+                  }
+
                 }
               }
               else {
-                console.log('I dont know how i came here - ah no, not connect babe')
+                console.log('Tào lao, connect chưa mà đòi đi tiếp!')
               }
             }
+          }
+          else {
+
           }
         }
       }
@@ -179,7 +202,15 @@ function App() {
             <img src={gif3} alt="" />
             <input placeholder="BTC Address" onChange={(e) => setUnwrapAddress(e.target.value)} />
             <input placeholder="Amount: 100" onChange={(e) => setUnwrapAmount(+e.target.value)} type="number" />
-            <button onClick={() => actionUnWrap()} disabled={!(unwrapAddress !== '' && unwrapAmount > 0)}>Unwrap</button>
+            <button onClick={() => actionUnWrap()} disabled={!(unwrapAddress !== '' && unwrapAmount >=1000)}>Unwrap</button>
+            {errorUnwrap !== '' ?
+              <span className="error">{errorUnwrap}</span>
+              : null}
+            {successWrap ?
+              <span className="success">Thành công rồi! Ăn mừng thôi!</span>
+              :
+              null
+            }
           </div>
         </div>
 

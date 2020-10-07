@@ -194,6 +194,9 @@ const GlobalStyle = createGlobalStyle`
     .error{
         color:#ff0000;
     }
+    .success{
+        color:yellowgreen;
+    }
     .problem{
         border:solid 2px red;
     }
