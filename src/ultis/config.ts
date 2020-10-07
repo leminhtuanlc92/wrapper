@@ -4,7 +4,7 @@ import { networks } from "bitcoinjs-lib";
 config()
 export const network = networks.testnet
 
-export const btcMultisigAddress = '2Mwnxqt1ryXZ1iBHE1dgc1TseQE2bR4kWFP'
+export const btcMultisigAddress = '2MvG7S6nVHsY3bUh1nidgqKfAjMV7Rcpryb'
 
 export const btcBlockbook = 'https://tbtc1.trezor.io/api/v2'
 
